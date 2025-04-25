@@ -1,7 +1,7 @@
-# Tailor Workshop Management System
+# Tailor Workshop App
 
 ## Project Overview
-The **Tailor Workshop Management System** is a simple application designed to help tailors manage their workshop activities, including client information, measurements, orders, and inventory. The system allows adding new clients, viewing and managing measurements, creating orders, and managing inventory items.
+The **Tailor Workshop App** is a simple application designed to help tailors manage their workshop activities, including client information, measurements, orders, and inventory. The system allows adding new clients, viewing and managing measurements, creating orders, and managing inventory items.
 
 This project is implemented in **Java** using object-oriented design principles, and it can be extended to include a GUI or database integration in future versions.
 
