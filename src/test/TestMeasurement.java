@@ -1,6 +1,8 @@
 package test;
 
 import model.Measurement;
+import model.MeasurementType;
+import model.SubMeasurement;
 
 import java.util.Scanner;
 
@@ -13,27 +15,27 @@ public class TestMeasurement {
 
         // Prompt user for key measurements
         System.out.print("Enter bust (cm): ");
-        measurement.setMeasurement("bust", scanner.nextDouble());
+        measurement.setMeasurement(MeasurementType.CHEST, "bust", scanner.nextDouble());
 
         System.out.print("Enter waist (cm): ");
-        measurement.setMeasurement("waist", scanner.nextDouble());
+        measurement.setMeasurement(MeasurementType.WAIST, "waist", scanner.nextDouble());
 
         System.out.print("Enter hips (cm): ");
-        measurement.setMeasurement("hips", scanner.nextDouble());
+        measurement.setMeasurement(MeasurementType.HIP, "hips", scanner.nextDouble());
 
         System.out.print("Enter inseam (cm): ");
-        measurement.setMeasurement("inseam", scanner.nextDouble());
+        measurement.setMeasurement(MeasurementType.INLEG, "inleg", scanner.nextDouble());
 
         System.out.println("\n=== Stored Measurements ===");
-        for (String key : measurement.getAllMeasurements().keySet()) {
-            System.out.println(key + ": " + measurement.getMeasurement(key) + " cm");
+        for (MeasurementType key : measurement.getAllMeasurements().keySet()) {
+            System.out.println(key + ": " + measurement.getMeasurement(key, "leg") + " cm");
         }
 
         // Individual retrieval test
         System.out.print("\nEnter the name of a measurement to view (e.g., bust): ");
         scanner.nextLine(); // consume leftover newline
         String key = scanner.nextLine();
-        Double value = measurement.getMeasurement(key);
+        SubMeasurement value = measurement.getMeasurement(MeasurementType.HIP, key);
         if (value != null) {
             System.out.println(key + ": " + value + " cm");
         } else {

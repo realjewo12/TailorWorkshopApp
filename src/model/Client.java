@@ -1,5 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import utils.IdGenerator;
 
 public class Client {
@@ -7,7 +11,7 @@ public class Client {
     private String name;
     private String phoneNumber;
     private String address;
-    private Measurement measurement;
+    private List<Measurement> measurements = new ArrayList<>();
 
     // Constructor: ID is now generated automatically
     public Client(String name, String phoneNumber, String address) {
@@ -15,7 +19,7 @@ public class Client {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.measurement = null;  // Initialize with no measurement
+        this.measurements = new ArrayList<>();  // Initialize with no measurement
     }
 
     // Getter and Setter methods
@@ -48,16 +52,21 @@ public class Client {
     }
 
     // Measurement related methods
-    public Measurement getMeasurement() {
-        return measurement;
+    public void addMeasurement(Measurement m) {
+        this.measurements.add(m);
     }
-
-    public void setMeasurement(Measurement measurement) {
-        this.measurement = measurement;
+    
+    public List<Measurement> getMeasurements() {
+        return Collections.unmodifiableList(measurements);
+    }
+    
+    public boolean hasMeasurements() {
+        return !measurements.isEmpty();
     }
 
     @Override
     public String toString() {
         return "ID: " + id + ", Name: " + name + ", Phone: " + phoneNumber + ", Address: " + address;
     }
+
 }

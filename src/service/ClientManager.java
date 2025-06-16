@@ -1,10 +1,12 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import model.Client;
 
-public class ClientManager {
-    private ArrayList<Client> clients = new ArrayList<>();
+public class ClientManager implements ClientService{
+    private List<Client> clients = new ArrayList<>();
 
     public void addClient(Client client) {
         clients.add(client);
@@ -46,6 +48,12 @@ public class ClientManager {
     }
 
     public ArrayList<Client> getAllClients() {
-        return clients;
+        return (ArrayList<Client>) clients;
     }
+
+	@Override
+	public Client getClientById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

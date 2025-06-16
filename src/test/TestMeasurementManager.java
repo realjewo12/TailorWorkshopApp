@@ -1,6 +1,7 @@
 package test;
 
 import model.Measurement;
+import model.MeasurementType;
 import service.MeasurementManager;
 
 public class TestMeasurementManager {
@@ -9,15 +10,15 @@ public class TestMeasurementManager {
 
         // Create first measurement
         Measurement m1 = new Measurement();
-        m1.setMeasurement("bust", 90.0);
-        m1.setMeasurement("waist", 70.0);
-        m1.setMeasurement("hips", 95.0);
+        m1.setMeasurement(MeasurementType.CHEST, "bust", 90.0);
+        m1.setMeasurement(MeasurementType.WAIST, "waist", 70.0);
+        m1.setMeasurement(MeasurementType.HIP, "hips", 95.0);
 
         // Create second measurement
         Measurement m2 = new Measurement();
-        m2.setMeasurement("shoulder", 40.0);
-        m2.setMeasurement("sleeve", 60.0);
-        m2.setMeasurement("length", 100.0);
+        m2.setMeasurement(MeasurementType.SHOULDER, "shoulder", 40.0);
+        m2.setMeasurement(MeasurementType.ARM, "sleeve", 60.0);
+        m2.setMeasurement(MeasurementType.GARMENT, "length", 100.0);
 
         // Add measurements to manager
         manager.addMeasurement("C001", m1);
@@ -27,8 +28,8 @@ public class TestMeasurementManager {
         System.out.println("Get Measurement for C001:");
         Measurement retrieved = manager.getMeasurement("C001");
         if (retrieved != null) {
-            for (String key : retrieved.getAllMeasurements().keySet()) {
-                System.out.println(key + ": " + retrieved.getMeasurement(key));
+            for (MeasurementType key : retrieved.getAllMeasurements().keySet()) {
+                System.out.println(key + ": " + retrieved.getMeasurement(key, null));
             }
         } else {
             System.out.println("No measurements found.");

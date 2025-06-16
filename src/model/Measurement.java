@@ -1,28 +1,51 @@
 package model;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class Measurement {
-    private HashMap<String, Double> measurements;
+    private final EnumMap<MeasurementType, MeasurementDetail> measurements;
 
     public Measurement() {
-        this.measurements = new HashMap<>();
+        this.measurements = new EnumMap<>(MeasurementType.class);
     }
 
-    public void setMeasurement(String key, double value) {
-        measurements.put(key, value);
+    public void addMeasurement(MeasurementType type, String subType, double value, String unit) {
+        measurements
+            .computeIfAbsent(type, k -> new MeasurementDetail())
+            .add(subType, value);
     }
 
-    public Double getMeasurement(String key) {
-        return measurements.getOrDefault(key, null);
+    public SubMeasurement getMeasurement(MeasurementType type, String subType) {
+        MeasurementDetail detail = measurements.get(type);
+        return detail != null ? detail.get(subType) : null;
     }
 
-    public HashMap<String, Double> getAllMeasurements() {
-        return measurements;
+    public MeasurementDetail getDetail(MeasurementType type) {
+        return measurements.get(type);
     }
-    
+
+    public boolean hasMeasurement(MeasurementType type, String subType) {
+        MeasurementDetail detail = measurements.get(type);
+        return detail != null && detail.contains(subType);
+    }
+
+    public Map<MeasurementType, MeasurementDetail> getAllMeasurements() {
+        return Collections.unmodifiableMap(measurements);
+    }
+
     @Override
     public String toString() {
-        return measurements.toString();
+        StringBuilder sb = new StringBuilder("Measurements:\n");
+        for (var entry : measurements.entrySet()) {
+            sb.append("  ").append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public void setMeasurement(MeasurementType type, String subType, double value) {
+        measurements.putIfAbsent(type, new MeasurementDetail()); // create the category if absent
+        measurements.get(type).add(subType, value); // add or update sub-measurement
     }
 }

@@ -47,8 +47,8 @@ public class TestClient {
         // Test setting a measurement
         System.out.println("\nSetting Measurement for Client...");
         Measurement measurement = new Measurement();  // Assume the Measurement class has a constructor or method for setting values
-        client.setMeasurement(measurement);
-        System.out.println("Measurement for Client: " + client.getMeasurement());  // Output the measurement object
+        client.addMeasurement(measurement);
+        System.out.println("Measurement for Client: " + client.getMeasurements());  // Output the measurement object
 
         // Close the scanner
         scanner.close();

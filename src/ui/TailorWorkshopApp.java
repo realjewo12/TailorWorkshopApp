@@ -6,6 +6,7 @@ import java.util.Scanner;
 import model.Client;
 import model.InventoryItem;
 import model.Measurement;
+import model.MeasurementType;
 import model.Order;
 import service.ClientManager;
 import service.InventoryManager;
@@ -92,22 +93,42 @@ public class TailorWorkshopApp {
 
         if (choice == 1) {
             Measurement m = new Measurement();
-            System.out.print("Enter number of measurements to add: ");
-            int count = Integer.parseInt(scanner.nextLine());
-            for (int i = 0; i < count; i++) {
-                System.out.print("Measurement name: ");
-                String key = scanner.nextLine();
-                System.out.print("Measurement value: ");
-                double value = Double.parseDouble(scanner.nextLine());
-                m.setMeasurement(key, value);
+            System.out.print("Enter number of measurement types (e.g. CHEST, WAIST): ");
+            int types = Integer.parseInt(scanner.nextLine());
+
+            for (int i = 0; i < types; i++) {
+                System.out.print("Measurement Type (e.g. CHEST): ");
+                String typeStr = scanner.nextLine().toUpperCase();
+                MeasurementType type;
+                try {
+                    type = MeasurementType.valueOf(typeStr);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid Measurement Type.");
+                    continue;
+                }
+
+                System.out.print("Number of sub-measurements under " + type + ": ");
+                int subCount = Integer.parseInt(scanner.nextLine());
+
+                for (int j = 0; j < subCount; j++) {
+                    System.out.print("Sub-measurement name (e.g. ChestFront): ");
+                    String subName = scanner.nextLine();
+                    System.out.print("Value: ");
+                    double value = Double.parseDouble(scanner.nextLine());
+                    ((Measurement) m).setMeasurement(type, subName, value);
+                }
             }
-            client.setMeasurement(m);
+
+            client.addMeasurement(m);
             measurementManager.addMeasurement(String.valueOf(client.getId()), m);
-            System.out.println("Measurements added.");
+            System.out.println("Measurements added for client: " + client.getName());
         } else if (choice == 2) {
             measurementManager.viewMeasurement(String.valueOf(client.getId()));
+        } else {
+            System.out.println("Invalid option.");
         }
     }
+
 
     private static void manageOrders() {
         System.out.println("\n--- Order Management ---");
