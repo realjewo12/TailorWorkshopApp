@@ -97,6 +97,9 @@ TailorApp isn't just a software project—it's a solution tailored for micro-bus
 - Useful for day-to-day client tracking.
 - Scalable for future improvements (mobile, cloud, AI).
 - A great portfolio piece to showcase your real-world impact.
+
 ---
+
 ## 📄 License
+
 MIT License – feel free to use, modify, and distribute with credit.
